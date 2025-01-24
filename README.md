@@ -1,7 +1,7 @@
 # hsr-codes-backend
 Backend for [hsr-codes](https://github.com/Hum-Bao/honkai-star-rail-codes). Finds and validates current Honkai: Star Rail gift codes
 
-Requires the following libraries:
+Requires the following python libraries:
 ```
 PyGithub
 python-dotenv
