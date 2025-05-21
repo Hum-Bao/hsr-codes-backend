@@ -1,8 +1,9 @@
 import os
+import time
+
 import gitpush
 import requests
 from bs4 import BeautifulSoup
-import time
 from dotenv import load_dotenv
 
 PATH = os.path.dirname(os.path.abspath(__file__))
@@ -49,10 +50,14 @@ def retrieve_codes():
                     if " " not in code_text.text and code_text.text != "":
                         codes_set.add(code_text.text)
             case "game8":
-                code_list = value.find("ul", class_="a-list")
-                for code_text in code_list.find_all("a", class_="a-link"):
-                    if "Credit" not in code_text.text and " " not in code_text.text:
-                        codes_set.add(code_text.text)
+                clipboard_text = value.find_all(
+                    "input",
+                    class_="a-clipboard__textInput",
+                )
+                for code in clipboard_text:
+                    code_text = code.get("value", "").strip()
+                    if code_text and " " not in code_text:
+                        codes_set.add(code_text.upper().strip())
             case "pcgamer":
                 # Remove all del tags as pcgamer uses <strong> tags inside of <del> tags,
                 # making a simple <strong> search impossible
